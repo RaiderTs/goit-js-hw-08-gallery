@@ -117,6 +117,8 @@ function onImageClick(evt) {
   onOpenModal(evt);
   refs.lightboxImageEl.src = event.target.dataset.source;
   refs.lightboxImageEl.alt = event.target.alt;
+
+  window.addEventListener('keydown', onEscPress);
 }
 
 function onCloseModal(evt) {
@@ -128,7 +130,6 @@ function onCloseModal(evt) {
 
 // Функция для открытия модалки
 function onOpenModal(evt) {
-  window.addEventListener('keydown', onEscPress);
   refs.lightboxEl.classList.add('is-open');
 }
 
@@ -166,8 +167,7 @@ let imgIndex = findIndex(); // присваиваем переменную
 // Функция листания изображения влево
 function onBackSide(evt) {
   if (imgIndex === 0) {
-    onCloseModal(); // закрытие модального окна
-    imgIndex += 1;
+    imgIndex += images.length;
   }
   imgIndex -= 1;
   refs.lightboxImageEl.src = images[imgIndex].original;
@@ -176,8 +176,7 @@ function onBackSide(evt) {
 // Функция листания изображения вправо
 function onNextSide(evt) {
   if (imgIndex === images.length - 1) {
-    onCloseModal(); // закрытие модального окна
-    imgIndex -= 1;
+    imgIndex -= images.length;
   }
   imgIndex += 1;
   refs.lightboxImageEl.src = images[imgIndex].original;
